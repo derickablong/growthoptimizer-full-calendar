@@ -203,9 +203,9 @@ class GO_FULL_CALENDAR
         
         foreach ($date_terms as $date) {
             
-            // $current_date = strtotime(date('Y-m-d'));
-            // $data_date = strtotime($date);
-            // if ($data_date < $current_date) continue;
+            $current_date = strtotime(date('Y-m-d'));
+            $data_date = strtotime($date);
+            if ($data_date < $current_date) continue;
 
 
             $args           = [];
