@@ -21,7 +21,7 @@
 
         time_format: function() {
             return {
-                hour: '2-digit',
+                hour: 'numeric',
                 minute: '2-digit',                
                 meridiem: true
             };

@@ -154,10 +154,10 @@ html, body {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 16px;
+    line-height: 18px;
     color: #3E3D3D!important;
     margin-left: 17px!important;
     margin-right: 29px!important;    
@@ -168,6 +168,7 @@ html, body {
 }
 .fc-daygrid-event .fc-event-time {
     text-transform: lowercase;
+    font-weight: 700;
 }
 .fc-daygrid-event:hover {
     background-color: transparent!important;
@@ -310,7 +311,7 @@ td.fc-day:hover::after {
 .mini-event-list .mini-header {
     position: relative;
     margin-bottom: 16px;
-    font-size: 10px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -333,7 +334,7 @@ td.fc-day:hover::after {
     font-size: 13px;
 }
 .mini-event-list .fc-event-time {
-    font-size: 11px!important;
+    font-size: 14px!important;
     font-style: normal!important;
     font-weight: 400!important;
     line-height: normal!important;
@@ -345,7 +346,7 @@ td.fc-day:hover::after {
 }
 .mini-event-list .fc-event-title {
     font-family: "Josefin Sans", sans-serif!important;
-    font-size: 13px!important;
+    font-size: 15px!important;
     font-style: normal!important;
     font-weight: 700!important;
     line-height: normal!important;
@@ -359,5 +360,5 @@ td.fc-day:hover::after {
 
 .no-schedule {
     color: #db3a3a;
-    font-size: 12px;
+    font-size: 14px;
 }
