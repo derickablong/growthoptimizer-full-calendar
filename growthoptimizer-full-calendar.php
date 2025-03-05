@@ -203,15 +203,16 @@ class GO_FULL_CALENDAR
         
         foreach ($date_terms as $date) {
             
+            $the_date = !empty($date->slug) ? $date->slug : $date;
+
             $current_date = strtotime(date('Y-m-d'));
-            $data_date = strtotime($date);
+            $data_date = strtotime($the_date);
             if ($data_date < $current_date) continue;
 
 
-            $args           = [];
-            $tax_query      = [];
-            $meta_query      = [];
-            $the_date = !empty($date->slug) ? $date->slug : $date;
+            $args       = [];
+            $tax_query  = [];
+            $meta_query = [];
             
             if(in_array($the_date, $loaded_dates)){
                 continue;

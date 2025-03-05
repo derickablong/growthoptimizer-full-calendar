@@ -87,8 +87,17 @@ html, body {
 .fc-col-header-cell {
     border: none!important;
 }
+.fc-daygrid-body,
+.fc-col-header  {
+    width: 100%!important;
+}
+.fc-daygrid-day-number,
+.fc-col-header-cell-cushion {
+    text-decoration: none!important;
+}
 .fc-daygrid-body table {
     margin: 0!important;
+    width: 100%!important;
 }
 .go-full-calendar * {
     outline: none!important;

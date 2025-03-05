@@ -63,7 +63,7 @@
             }
         },
 
-        calenar_props: function() {
+        calendar_props: function() {
             return {
                 initialView    : 'dayGridMonth',
                 events         : GO_FULL_CALENDAR.source(),
@@ -80,7 +80,7 @@
             GO_FULL_CALENDAR.el_calendar = document.querySelector('#go-full-calendar');
             GO_FULL_CALENDAR.calendar    = new FullCalendar.Calendar(
                 GO_FULL_CALENDAR.el_calendar, 
-                GO_FULL_CALENDAR.calenar_props()
+                GO_FULL_CALENDAR.calendar_props()
             );              
             GO_FULL_CALENDAR.calendar.render();            
             setTimeout(function() {
@@ -120,6 +120,7 @@
                 );
                 GO_FULL_CALENDAR.display_events();
             }
+            console.log('Calendar started.');
         },
 
         white_label: function() {
@@ -166,6 +167,18 @@
                 'click', 
                 '.fc-day',
                 GO_FULL_CALENDAR.cell_click
+            );
+            $(document).on(
+                'click',
+                '.full-calendar-btn .elementor-button',
+                function(e) {
+                    e.preventDefault();
+                    setTimeout(function() {
+                        var event = new CustomEvent("DOMContentLoaded");
+                        document.dispatchEvent(event);
+                        console.log('Loading events...');
+                    }, 500);
+                }
             );
 
             GO_FULL_CALENDAR.model.on(
