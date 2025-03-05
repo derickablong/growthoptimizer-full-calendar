@@ -76,7 +76,21 @@
             }
         },
 
-        view: function() {
+        remove_duplicate: function() {
+            var seen = {};
+            $('.menupop').each(function() {
+                var txt = $(this).attr('id');
+                if (txt == 'wp-admin-bar-elementor_edit_page') {
+                    if (seen[txt]) {
+                        $(this).remove();                    
+                    } else {
+                        seen[txt] = true;                        
+                    }
+                }
+            });
+        },
+
+        view: function() {            
             GO_FULL_CALENDAR.el_calendar = document.querySelector('#go-full-calendar');
             GO_FULL_CALENDAR.calendar    = new FullCalendar.Calendar(
                 GO_FULL_CALENDAR.el_calendar, 
@@ -124,8 +138,12 @@
         },
 
         white_label: function() {
+            GO_FULL_CALENDAR.remove_duplicate();
+
             $('.fc-daygrid-day-bottom').remove();
+            
             if (GO_FULL_CALENDAR.current_cel === null) return;            
+
             let day = GO_FULL_CALENDAR.current_cel.find('.fc-daygrid-day-number');
             let day_date = day.attr('aria-label');
             let date_arr = day_date.split(',');
@@ -137,7 +155,7 @@
                     item_time.prepend( '<span>' + day_date + '</span> @' );
                     item_time.addClass('white-labeled');
                 }
-            });
+            });            
         },
 
         display_events: function() {            

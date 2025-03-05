@@ -213,32 +213,40 @@ jQuery(document).ready(function($) {
         
         return videoID;
     }
+
+    function load_shows(el) {
+        $('#view-type a').removeClass('active');
+        $(el).addClass('active');
+
+        if($('.results-loader.loading').length){return false;}
+        isloading = false;
+        nomore = false;
+        
+        paged = 1;
+		offset = 0;
+        do_filter();
+    }
+
     
     $('#view-type a[href="#date-view"]').addClass('active');
     $('.ct-results').attr('data-view', 'date-view');
     
     $(document).on('click', '#view-type a[href="#calendar-view"]', function(e) {
-        e.preventDefault();
-        $('#view-type a').removeClass('active');
-        $(this).addClass('active');
-        $('.ct-results, .more-result-loading').hide();
+        e.preventDefault();        
+        $('.ct-results').hide();
+        $('.more-result-loading').css('opacity', '0');
         $('.go-full-calendar-holder').show();
+
+        load_shows(this);
     });
     
     $(document).on('click', '#view-type a[href="#date-view"], #view-type a[href="#all-view"]', function(e) {
         e.preventDefault();
         $('.ct-results, .more-result-loading').show();
+        $('.more-result-loading').css('opacity', '1');
         $('.go-full-calendar-holder').hide();
 
-        if($('.results-loader.loading').length){return false;}
-        isloading = false;
-        nomore = false;
-        $('#view-type a').removeClass('active');
-        $(this).addClass('active');     
-        paged = 1;
-		offset = 0;
-        do_filter();
-
+        load_shows(this);
     });
 
 	function updateSelectedDatesDisplay() {
