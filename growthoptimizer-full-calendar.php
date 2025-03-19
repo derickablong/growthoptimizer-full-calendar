@@ -184,6 +184,7 @@ class GO_FULL_CALENDAR
 
         $loaded_dates = [];
         $json_data    = [];
+        $added_times  = [];
         $keyword      = $_POST['keyword'];
         $dates        = $_POST['dates'];
         $genres       = $_POST['genres'];
@@ -282,49 +283,40 @@ class GO_FULL_CALENDAR
             // Loop through posts
             if ($results->have_posts()) :
             
-                while ($results->have_posts()) : $results->the_post();
-                    $the_time = '';
+                while ($results->have_posts()) : $results->the_post();                
+                  
                     $showtimes = get_field('showtimes');
+                    $title     = get_the_title();
+                    $permalink = get_the_permalink();
                     
-                    if ($showtimes) {
-                        $added_times = [];
+                    if ($showtimes) {                        
                         foreach ($showtimes as $showtime) {
-                            if (isset($showtime['date']) && isset($the_date)) {
-                                $normalized_date = str_replace('-', '', $the_date);
-                                if ($showtime['date'] === $normalized_date) {
-                                    $time = $showtime['time'];
-                                    
-                                    if (!in_array($time, $added_times)) {
-                                        $the_time = $time;                                                                      
-                                        $added_times[] = $time;
-                                        break;                                      
-                                    }
-                                }
+                            if (isset($showtime['date'])) {
+                                
+                                $time     = $showtime['time'];
+                                $time_raw = new DateTime($time);
+                                $the_time = $time_raw->format("H:i:s");
+                                $schedule = sanitize_title($title.$showtime['date'].$the_time);
+                                
+                                if (!in_array($schedule, $added_times)) {
+
+                                    $json_data[] = [
+                                        'date'  => $showtime['date'],
+                                        'time'  => $the_time,
+                                        'title' => html_entity_decode($title),
+                                        'start' => $showtime['date'] . ' ' . $the_time,
+                                        'end'   => $showtime['date'] . ' ' . $the_time,
+                                        'url'   => $permalink
+                                    ];    
+
+                                    $added_times[] = $schedule;                                   
+                                }                                
                             }
                         }
                     }                  
             
-                    $time_raw = new DateTime($the_time);
-                    $the_time = $time_raw->format("H:i:s");                  
-
-
-                    $json_data[] = [
-                        'date'  => $the_date,
-                        'time'  => $the_time,
-                        'title' => html_entity_decode(get_the_title()),
-                        'start' => $the_date . ' ' . $the_time,
-                        'end'   => $the_date . ' ' . $the_time,
-                        'url'   => get_the_permalink()
-                    ];
-            
-                endwhile;
-            
-                usort($json_data, function ($a, $b) {
-                    return strcmp($a['time'], $b['time']);
-                });
-            
-                wp_reset_postdata();            
-            
+                endwhile;            
+                wp_reset_postdata();                        
             endif;           
             
 
